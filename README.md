@@ -5,15 +5,17 @@ A project to practice reproducible practices.
 
 Original Project from Riffomas.
 
-* https://www.youtube.com/watch?v=olu821RTQA8
-* https://www.youtube.com/watch?v=Ft8ayhfgaqo
-* 
+* https://www.youtube.com/watch?v=olu821RTQA8 (246)
+* https://www.youtube.com/watch?v=Ft8ayhfgaqo (247)
+* https://www.youtube.com/watch?v=r9PWnEmz_tc (248)
 
+
+## data description
 https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
 
-# Uses CONDA env
-* Create env for this project
-* create environment.yml
+## uses CONDA env
+* Creates an env for this project
+* environment.yml
 * mamba env create -f environment.yml
 * conda activate drought
