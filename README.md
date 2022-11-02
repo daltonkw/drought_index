@@ -19,3 +19,5 @@ https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 * environment.yml
 * mamba env create -f environment.yml
 * conda activate drought
+
+snakemake --dag targets | dot -Tpng > dag.png
