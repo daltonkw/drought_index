@@ -9,6 +9,9 @@ Original Project from Riffomas.
 * https://www.youtube.com/watch?v=Ft8ayhfgaqo (247)
 * https://www.youtube.com/watch?v=r9PWnEmz_tc (248)
 * https://www.youtube.com/watch?v=nNKwcIfcwgo&list=PLmNrK_nkqBpJTSHf3IsN_K_pjFu58z9Oq&index=34 (249)
+* https://www.youtube.com/watch?v=LKprlFCLnSA&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=5 (250)
+* https://www.youtube.com/watch?v=xuxMxhW0fHU&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=7 (251)
+* https://www.youtube.com/watch?v=NSy-WByR8Qo&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=6 (252)
 
 ## data description
 https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt

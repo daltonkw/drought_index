@@ -11,3 +11,4 @@ dependencies:
   - python=3.10.6
   - snakemake=7.17.1
   - graphviz=6.0.1
+  - radian=0.6.4
