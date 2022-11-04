@@ -13,12 +13,13 @@ library(glue)
 # Functions
 x <- 20
 quadruple <- function(x) {
-    c(glue("VALUE{x}"), 
+    c(glue("VALUE{x}"),
       glue("MFLAG{x}"),
       glue("QFLAG{x}"),
       glue("SFLAG{x}")
     )
 }
+
 
 widths <- c(11, 4, 2, 4, rep(c(5, 1, 1, 1), 31))
 headers <- c("ID", "YEAR", "MONTH", "ELEMENT", unlist(map(1:31, quadruple)))
@@ -55,9 +56,9 @@ process_xfiles <- function(x) {
 
   print(x)
   readr::read_fwf(x,
-                fwf_widths(widths, headers),
+                readr::fwf_widths(widths, headers),
                 na = c("NA", "-9999"),
-                col_types = cols(.default = col_character()),
+                col_types = cols(.default = readr::col_character()),
                 col_select = c(ID, YEAR, MONTH, ELEMENT, starts_with("VALUE"))
                 ) |>
   dplyr::rename_all(tolower) |>
@@ -65,11 +66,13 @@ process_xfiles <- function(x) {
 # dplyr::select(-element) |>
   tidyr::pivot_longer(cols = starts_with("value"), names_to = "day",
                     values_to = "prcp") |>
-  drop_na() |>
-  dplyr::filter(prcp != 0) |>
+  # tidyr::drop_na() |>
+  # dplyr::filter(prcp != 0) |>
   dplyr::mutate(day = stringr::str_replace(day, "value", ""),
-              date = lubridate::ymd(glue("{year}-{month}-{day}")),
-              prcp = as.numeric(prcp)/100) |> # prcp now in cm
+              date = lubridate::ymd(glue("{year}-{month}-{day}"), quiet = TRUE),
+              prcip = tidyr::replace_na(prcp, "0"),
+              prcp = as.numeric(prcp) / 100) |> # prcp now in cm
+  tidyr::drop_na(date) |>
   dplyr::select(id, date, prcp) |>
   dplyr::mutate(julian_day = lubridate::yday(date),
                 diff = tday_julian - julian_day,
