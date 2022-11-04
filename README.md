@@ -12,6 +12,7 @@ Original Project from Riffomas.
 * https://www.youtube.com/watch?v=LKprlFCLnSA&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=5 (250)
 * https://www.youtube.com/watch?v=xuxMxhW0fHU&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=7 (251)
 * https://www.youtube.com/watch?v=NSy-WByR8Qo&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=6 (252)
+* https://www.youtube.com/watch?v=gy2jaP_OK_c&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=8 (253)
 
 ## data description
 https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
@@ -23,4 +24,5 @@ https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 * mamba env create -f environment.yml
 * conda activate drought
 
+### snakemake dags
 snakemake --dag targets | dot -Tpng > dag.png
