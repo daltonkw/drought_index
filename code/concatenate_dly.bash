@@ -7,4 +7,6 @@ tar Oxvzf data/ghcnd_all.tar.gz | grep "PRCP" | split -l 500000 --filter 'gzip >
 code/read_split_dly_files.R
 
 rm -rf data/temp
+
+
 # gazip > data/ghcnd_cat.gz

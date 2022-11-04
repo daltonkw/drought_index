@@ -70,7 +70,7 @@ process_xfiles <- function(x) {
   # dplyr::filter(prcp != 0) |>
   dplyr::mutate(day = stringr::str_replace(day, "value", ""),
               date = lubridate::ymd(glue("{year}-{month}-{day}"), quiet = TRUE),
-              prcip = tidyr::replace_na(prcp, "0"),
+              prcp = tidyr::replace_na(prcp, "0"),
               prcp = as.numeric(prcp) / 100) |> # prcp now in cm
   tidyr::drop_na(date) |>
   dplyr::select(id, date, prcp) |>
@@ -93,5 +93,5 @@ x_files <- list.files("data/temp", full.names = TRUE)
 
 purrr::map_dfr(x_files, process_xfiles) |>
   dplyr::group_by(id, year) |>
-  dplyr::summarise(sum = sum(prcp), .group = "drop") |>
+  dplyr::summarise(prcp = sum(prcp), .groups = "drop") |>
   readr::write_tsv("data/ghcnd_tidy.tsv.gz")
