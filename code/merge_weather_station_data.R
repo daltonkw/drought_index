@@ -24,12 +24,12 @@ dplyr::inner_join(
     x = lat_long_prcp,
     y = this_year,
     by = c("latitude", "longitude")
-) |> 
-dplyr::rename(all_years = mean_prcp.x, this_year = mean_prcp.y) |> 
+) |>
+dplyr::rename(all_years = mean_prcp.x, this_year = mean_prcp.y) |>
 dplyr::group_by(latitude, longitude) |>
 dplyr::summarise(
     z_score = (min(this_year) - mean(all_years)) / sd(all_years),
     n = n(),
     .groups = "drop"
-) |> 
+) |>
 dplyr::filter(n >= 50)

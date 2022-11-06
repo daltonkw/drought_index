@@ -2,6 +2,8 @@
 A project to practice reproducible practices.
 * Organize & Dependencies
 * Bash for automated data acquisition
+* Snakemake
+* R
 
 Original Project from Riffomas.
 
@@ -14,6 +16,9 @@ Original Project from Riffomas.
 * https://www.youtube.com/watch?v=NSy-WByR8Qo&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=6 (252)
 * https://www.youtube.com/watch?v=gy2jaP_OK_c&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=8 (253)
 * https://www.youtube.com/watch?v=3rVvgfcpM-k&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=9 (254)
+* https://www.youtube.com/watch?v=eNpt6hz-UGo&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=10 (255)
+* https://www.youtube.com/watch?v=J6JIKk2MGs4&list=PLmNrK_nkqBpK6iqwN3QeQyXqI6DrcGgIm&index=11 (257)
+
 
 ## data description
 https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
@@ -27,3 +32,5 @@ https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
 ### snakemake dags
 snakemake --dag targets | dot -Tpng > dag.png
+### force snakemake
+snakemake -R <rules>
