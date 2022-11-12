@@ -1,6 +1,7 @@
 data/
 ghcnd_all/
 .snakemake
+Rplots.pdf
 
 practice.R
 

@@ -5,7 +5,8 @@ rule targets:
         "data/ghcnd-inventory.txt",
         "data/ghcnd-stations.txt",
         "data/ghcnd_tidy.tsv.gz",
-        "data/ghcnd_regions_years.tsv"
+        "data/ghcnd_regions_years.tsv",
+        "figures/world_drought.pdf"
 
 rule get_all_archive:
     input:
@@ -65,12 +66,25 @@ rule summarize_dly_files:
         """
         {input.bash_script}
         """
+        
 rule get_regions_years:
     input:
         r_script = "code/get_regions_years.R",
         data = "data/ghcnd-inventory.txt"
     output:
         archive = "data/ghcnd_regions_years.tsv"
+    shell:
+        """
+        {input.r_script}
+        """
+
+rule plot_drought_by_region:
+    input:
+        r_script = "code/plot_drought_by_region.R",
+        prcp_data = "data/ghcnd_tidy.tsv.gz",
+        station_data = "data/ghcnd_regions_years.tsv"
+    output:
+        archive = "figures/world_drought.pdf"
     shell:
         """
         {input.r_script}
