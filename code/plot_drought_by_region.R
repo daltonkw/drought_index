@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 library(tidyverse)
-# library(httpgd)
+#library(httpgd)
 library(lubridate)
 library(glue)
 
@@ -37,13 +37,15 @@ lat_long_prcp |>
     ggplot2::ggplot(aes(x = longitude, y = latitude, fill = z_score)) +
         ggplot2::geom_tile() +
         coord_fixed() +
-        scale_fill_gradient2(name = NULL,
-                             low = "#d8b365",
-                             mid = "#f5f5f5",
-                             high = "#5ab4ac",
-                             midpoint = 0,
-                             breaks = c(-2, -1, 0, 1, 2),
-                             labels = c("<-2", "-1", "0", "1", ">2")) +
+        scale_fill_gradient2(
+            name = NULL,
+            low = "#d8b365",
+            mid = "#f5f5f5",
+            high = "#5ab4ac",
+            midpoint = 0,
+            breaks = c(-2, -1, 0, 1, 2),
+            labels = c("<-2", "-1", "0", "1", ">2")
+        ) +
         theme(
             plot.background = element_rect(fill = "black", color = "black"),
             panel.background = element_rect(fill = "black"),
@@ -64,6 +66,6 @@ lat_long_prcp |>
             caption = "Precipitation data collected from GHCN daily data at NOAA"
         )
 
-ggplot2::ggsave("figures/world_drought.pdf", 
-    width = 8, height = 4, device = "pdf")
+ggplot2::ggsave("figures/world_drought.png", 
+    width = 8, height = 4, device = "png")
 # colorbrewer2.org good color advice for cartography
