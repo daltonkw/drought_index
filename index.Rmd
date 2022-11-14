@@ -10,7 +10,7 @@ github_repo: https://daltonkw.github.io/drought_index/
 library(lubridate)
 ```
 
-```{css echo = FALSE}
+```{css echo=FALSE}
 .author, .title {
     display: none;
 }
