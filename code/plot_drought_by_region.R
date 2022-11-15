@@ -16,6 +16,7 @@ sysfonts::font_add_google(
 )
 
 showtext::showtext_auto()
+showtext::showtext_opts(dpi = 300)
 
 prcp_data <- readr::read_tsv("data/ghcnd_tidy.tsv.gz")
 station_data <- readr::read_tsv("data/ghcnd_regions_years.tsv")
