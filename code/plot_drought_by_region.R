@@ -4,6 +4,18 @@ library(tidyverse)
 #library(httpgd)
 library(lubridate)
 library(glue)
+library(showtext)
+
+sysfonts::font_add_google(
+    "Roboto slab",
+    family = "roboto-slab"
+)
+sysfonts::font_add_google(
+    "Montserrat",
+    family = "montserrat"
+)
+
+showtext::showtext_auto()
 
 prcp_data <- readr::read_tsv("data/ghcnd_tidy.tsv.gz")
 station_data <- readr::read_tsv("data/ghcnd_regions_years.tsv")
@@ -49,12 +61,17 @@ lat_long_prcp |>
         theme(
             plot.background = element_rect(fill = "black", color = "black"),
             panel.background = element_rect(fill = "black"),
-            plot.title = element_text(color = "#f5f5f5", size = 16),
-            plot.subtitle = element_text(color = "#f5f5f5"),
-            plot.caption = element_text(color = "#f5f5f5"),
+            plot.title = element_text(color = "#f5f5f5",
+                                      size = 18,
+                                      family = "roboto-slab"),
+            plot.subtitle = element_text(color = "#f5f5f5",
+                                         family = "montserrat"),
+            plot.caption = element_text(color = "#f5f5f5",
+                                        family = "montserrat"),
             panel.grid = element_blank(),
             legend.background = element_blank(),
-            legend.text = element_text(color = "#f5f5f5"),
+            legend.text = element_text(color = "#f5f5f5",
+                                       family = "montserrat"),
             legend.position = c(0.15, 0.0),
             legend.direction = "horizontal",
             legend.key.height = unit(0.25, "cm"),
