@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 library(tidyverse)
-#library(httpgd)
+# library(httpgd)
 library(lubridate)
 library(glue)
 library(showtext)
@@ -21,8 +21,36 @@ showtext::showtext_opts(dpi = 300)
 prcp_data <- readr::read_tsv("data/ghcnd_tidy.tsv.gz")
 station_data <- readr::read_tsv("data/ghcnd_regions_years.tsv")
 
-end <- format(lubridate::today(), "%B %d")
-start <- format(lubridate::today() - 30, "%B %d")
+buffered_today <- lubridate::today() - 5
+buffered_end <- lubridate::today() - 5
+buffered_start <- buffered_end - 30
+
+
+
+end <- dplyr::case_when(
+    # different month, same year & diff month, diff year
+    lubridate::month(buffered_start) != lubridate::month(buffered_end) ~
+        format(buffered_end, "%B %-d, %Y"),
+    # same month, same year
+    lubridate::month(buffered_start) == lubridate::month(buffered_end) ~
+        format(buffered_end, "%-d, %Y"),
+    TRUE ~ NA_character_
+)
+start <- dplyr::case_when(
+    # different month, different year
+    lubridate::year(buffered_start) != lubridate::year(buffered_end) ~
+        format(buffered_start, "%B %-d, %Y"),
+    # different month, same year
+    lubridate::month(buffered_start) != lubridate::month(buffered_end) ~
+        format(buffered_start, "%B %-d"),
+    # same month, same year
+    lubridate::month(buffered_start) == lubridate::month(buffered_end) ~
+        format(buffered_start, "%B %-d"),
+    TRUE ~ NA_character_
+)
+
+date_range <- glue::glue("{start} to {end}")
+
 
 lat_long_prcp <- dplyr::inner_join(
     x = prcp_data,
@@ -42,7 +70,7 @@ lat_long_prcp |>
         n = n()
     ) |>
     dplyr::ungroup() |>
-    dplyr::filter(n >= 50 & year == 2022) |>
+    dplyr::filter(n >= 50 & year == lubridate::year(buffered_end)) |>
     dplyr::select(-n, -year, -mean_prcp) |>
     dplyr::mutate(z_score =
                     if_else(z_score > 2, 2, z_score),
@@ -66,6 +94,7 @@ lat_long_prcp |>
                                       size = 18,
                                       family = "roboto-slab"),
             plot.subtitle = element_text(color = "#f5f5f5",
+                                         size = 10,
                                          family = "montserrat"),
             plot.caption = element_text(color = "#f5f5f5",
                                         family = "montserrat"),
@@ -79,11 +108,11 @@ lat_long_prcp |>
             axis.text = element_blank()
         ) +
         labs(
-            title = glue::glue("Amount of precipitation for {start} to {end}"),
+            title = glue::glue("Amount of precipitation for {date_range}"),
             subtitle = "Standardized Z-scores for at least the past 50 years",
             caption = "Precipitation data collected from GHCN daily data at NOAA"
         )
 
-ggplot2::ggsave("figures/world_drought.png", 
+ggplot2::ggsave("figures/world_drought.png",
     width = 8, height = 4, device = "png")
 # colorbrewer2.org good color advice for cartography
