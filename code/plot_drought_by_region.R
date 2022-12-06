@@ -51,6 +51,9 @@ start <- dplyr::case_when(
 
 date_range <- glue::glue("{start} to {end}")
 
+world_map <- ggplot2::map_data("world") |>
+    dplyr::filter(region != "Antarctica")
+#    dplyr::mutate(lat = round(lat), long = round(long))
 
 lat_long_prcp <- dplyr::inner_join(
     x = prcp_data,
@@ -76,6 +79,15 @@ lat_long_prcp |>
                     if_else(z_score > 2, 2, z_score),
                     if_else(z_score < -2, -2, z_score)) |>
     ggplot2::ggplot(aes(x = longitude, y = latitude, fill = z_score)) +
+        ggplot2::geom_map(
+            data = world_map,
+            aes(map_id = region),
+            map = world_map,
+            fill = NA,
+            color = "#f5f5f5",
+            size = 0.05,
+            inherit.aes = FALSE) +
+        expand_limits(x = world_map$long, y = world_map$lat) +
         ggplot2::geom_tile() +
         coord_fixed() +
         scale_fill_gradient2(
@@ -116,3 +128,13 @@ lat_long_prcp |>
 ggplot2::ggsave("figures/world_drought.png",
     width = 8, height = 4, device = "png")
 # colorbrewer2.org good color advice for cartography
+
+
+
+
+#ggplot2::ggplot(data = world_map,
+#                aes(x = long, y = lat, map_id = region)) +
+#        ggplot2::geom_map(map = world_map, fill = NA, color = "white") +
+#        ggplot2::coord_fixed() +
+#        theme(panel.background = element_rect(fill = "black"),
+#              plot.background = element_rect(fill = "black"))
